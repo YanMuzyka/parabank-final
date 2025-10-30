@@ -1,0 +1,51 @@
+# Parabank — Short Test Plan (Task 2)
+
+## 1. Objective
+Verify that key user flows of ParaBank work correctly and are validated on both client and server:
+Registration, Login/Logout, Accounts Overview, Transfer Funds, Bill Pay, Find Transactions, Update Profile, Request Loan.
+
+## 2. Scope
+### In scope
+- UI forms and validation for the pages listed above.
+- Happy path + negative scenarios per form.
+- Cross-screen consistency: an operation creates a visible effect (e.g., transfer -> transaction entry).
+- Basic UX/accessibility checks (focus, tab order, visible error messages).
+
+### Out of scope
+- Performance/load testing, full security pentesting.
+- Mobile/responsive testing.
+- Internationalization beyond quick sanity.
+
+## 3. Test items (features to test)
+- Login/Logout
+- Registration
+- Transfer Funds
+- Bill Pay
+- Find Transactions
+- Update Profile
+- Request Loan
+
+## 4. Test approach
+- **Functional testing:** positive & negative.
+- **Validation testing:** field rules, error messages, boundary values.
+- **Integration checks:** operation -> reflected in Accounts Overview/transaction list.
+- **UX/accessibility sanity:** focus, keyboard navigation, contrast of error states.
+- **Regression subset:** smoke on all major pages after changes.
+
+## 5. Environment
+- **OS:** Windows 10/11.
+- **Browsers:** Chrome (latest), Firefox (latest), Edge (latest).
+- **Test data:** at least 1 user with an active account and non-zero balance.
+- **Tools:** Chrome DevTools, Postman/Insomnia, MySQL Workbench, VS Code, Git Bash, screenshot/recording tool.
+
+## 6. Entry & Exit criteria
+- **Entry:** Site available; test account present; key pages open without 5xx.
+- **Exit:** 100% High priority tests passed; 0 critical defects; <=1 Major with workaround documented; test evidence attached.
+
+## 7. Risks & mitigations
+- **Demo instability / intermittent errors:** collect HAR/console logs; retry and document.
+- **Duplicate submissions (double-click/refresh):** explicit idempotency checks.
+- **Hidden business rules (limits/rounding):** capture actual behavior and align expectations in report.
+
+## 8. Deliverables
+- Test cases/checklists, API requests (Postman/cURL), SQL scripts, exploratory notes, defect reports, summary report.

@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "52a7a146-9353-4e33-99a8-1b71a3c2b52b",
+		"name": "Parabank_YanMuzyka_Final",
+		"description": "Task 6: GET balance for an accountId (positive & negative). Adjust baseUrl to your environment.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49175898",
+		"_collection_link": "https://yanmuzyka-3180518.postman.co/workspace/Yan-Muzyka's-Workspace~df6898cc-4c49-4411-8b6d-c41f449135f4/collection/49175898-52a7a146-9353-4e33-99a8-1b71a3c2b52b?action=share&source=collection_link&creator=49175898"
+	},
+	"item": [
+		{
+			"name": "GET Balance (valid)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 200', function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"try {",
+							"  const json = pm.response.json();",
+							"  pm.test('Has numeric balance', function(){",
+							"    pm.expect(json).to.have.property('balance');",
+							"    pm.expect(json.balance).to.be.a('number');",
+							"  });",
+							"} catch(e) {",
+							"  pm.test('Response is JSON', function(){ throw e; });",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/parabank/services/bank/accounts/{{accountId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"parabank",
+						"services",
+						"bank",
+						"accounts",
+						"{{accountId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Balance (non-existent account)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 404 (or handled error)', function () {",
+							"  pm.expect([404,400].includes(pm.response.code)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/parabank/services/bank/accounts/99999999/balance",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"parabank",
+						"services",
+						"bank",
+						"accounts",
+						"99999999",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Balance (invalid accountId format)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status is 400 (or handled error)', function () {",
+							"  pm.expect([400,404].includes(pm.response.code)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/parabank/services/bank/accounts/ABC/balance",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"parabank",
+						"services",
+						"bank",
+						"accounts",
+						"ABC",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://parabank.parasoft.com"
+		},
+		{
+			"key": "accountId",
+			"value": "23778"
+		}
+	]
+}
