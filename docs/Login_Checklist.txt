@@ -1,0 +1,21 @@
+# Login Checklist (Task 5)
+
+## UI & Accessibility
+- Labels match fields; placeholders are meaningful; tab order is logical.
+- Password is masked; pressing **Enter** submits the form.
+- Login button enabled/disabled according to rules; focus returns to the first invalid field.
+
+## Validation
+- Empty fields -> clear required messages.
+- Trimming: leading/trailing spaces removed; all-whitespace input is rejected.
+- Length limits: too short/too long username/password -> proper errors.
+- Invalid credentials -> single safe error message (no user enumeration).
+
+## Behavior
+- After an error, correcting values and resubmitting leads to successful login.
+- After **Logout**, using browser **Back** does not restore authenticated session.
+- Rate-limiting/lockouts (if exist) behave predictably; if not present, no UI freeze.
+
+## Security sanity
+- Password never appears in URL or console logs.
+- No HTML/script injection in fields or error messages.
